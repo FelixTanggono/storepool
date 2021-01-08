@@ -37,8 +37,8 @@ Route::post('/profile','UserController@editProfile');
 
 
 
-// //ITEM
-// Route::get('/home','ItemController@homePage'); 
+//ITEM
+Route::get('/item','ItemController@homePage'); 
 // Route::get('/shoeDetail/{id}' , 'ItemController@shoeDetail') ;
 // Route::get('/addShoe' , 'ItemController@addShoePage');
 // Route::post('/addShoe' , 'ItemController@addShoe');

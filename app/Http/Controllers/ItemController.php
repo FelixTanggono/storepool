@@ -13,112 +13,74 @@ use App\Item;
 
 class ItemController extends Controller
 {
-    // //
+    
 
-    // public function homePage(Request $request){
+    public function homePage(Request $request){
         
-    //     $keyword = '' ; 
-    //     $keyword = $request->get('search') ;
+        $keyword = '' ; 
+        $keyword = $request->get('search') ;
 
-    //     $auth = Auth::check();
-    //     $role = 'guest' ; 
-    //     $name = 'guest' ; 
+        $auth = Auth::check();
+        $role = 'guest' ; 
+        $name = 'guest' ; 
+        $user_id ; 
+        $user_logo ; 
 
 
-    //     $bannerShoe = Item::all()->take(3);
-    //     $shoes = Item::paginate(6)->appends(request()->query()); 
-    //     $resultCount = '' ; 
+        if($auth){
+            $role = Auth::user()->role ; // ambil atribut role dari usernya 
+            $name = Auth::user()->username ; 
+            $user_id = Auth::user()->id ; 
+            $user_logo = Auth::user()->logo ; 
+        }
+
+        $item = Item::where('user_id' , $user_id )->paginate(10)->appends(request()->query()); 
+        $resultCount = 0 ; 
         
-    //     if($auth){
-    //         $role = Auth::user()->role ; // ambil atribut role dari usernya 
-    //         $name = Auth::user()->username ; 
-    //     }
+        if($keyword){
+            $item =  Item::where('name', 'LIKE', "%$keyword%")->where('user_id' , $user_id )->paginate(10)->appends(request()->query()) ; 
+            $resultCount = Item::where('name', 'LIKE', "%$keyword%")->where('user_id' , $user_id )->count() ;    
+        }
 
-    //     if($keyword){
-    //         $shoes =  Item::where('name', 'LIKE', "%$keyword%")->paginate(6)->appends(request()->query()) ; 
-    //         $resultCount = Item::where('name', 'LIKE', "%$keyword%")->count() ;    
-    //     }
+        // var_dump($item) ; die ; 
 
-    //     $pages = $this->retrievePages($role) ; 
-        
-    //     // var_dump($role) ; 
-    //     $data = [
-    //             'auth'=>$auth ,
-    //             'role' => $role ,
-    //             'username' => $name ,
-    //             'shoes' => $shoes ,
-    //             'pages' => $pages ,
-    //             'bannerShoe'=>$bannerShoe ,
-    //             'keyword' => $keyword ,
-    //             'keywordCount' => $resultCount
-    //             ] ; 
-    //     // var_dump($shoes) ; die ; 
+        $data = [
+                'auth'=>$auth ,
+                'role' => $role ,
+                'username' => $name ,
+                'user_logo' => $user_logo , 
+                'item' => $item ,  
+                'keyword' => $keyword ,
+                'keywordCount' => $resultCount , 
+                'pages' => 'Item'
 
-    //     return view('homePage', $data );
-    // }
+                ] ; 
+
+        return view('itemPage' , $data );
+    }
 
     
-    // public function shoeDetail($id){
+    public function addItem($id){
 
-    //     $auth = Auth::check();
-    //     $role = 'guest' ; 
-    //     $name = 'guest' ; 
+        $auth = Auth::check();
+        $role = 'guest' ; 
+        $name = 'guest' ; 
+        $user_id ; 
+        $user_logo ; 
 
-    //     if($auth){
-    //         $role = Auth::user()->role ; // ambil atribut role dari usernya 
-    //         $name = Auth::user()->username ; 
-    //     }
+        if($auth){
+            $role = Auth::user()->role ; // ambil atribut role dari usernya 
+            $name = Auth::user()->username ; 
+            $user_id = Auth::user()->id ; 
+            $user_logo = Auth::user()->logo ; 
+        }
 
-    //     $pages = $this->retrievePages($role) ; 
-
-
-    //     $shoe = Item::where('id', $id )->get()->toArray() ; 
-    //     $shoe = $shoe[0] ; 
-
-    //     $data = [
-    //         'auth'=>$auth ,
-    //         'role' => $role ,
-    //         'username' => $name ,
-    //         'shoe' => $shoe ,
-    //         'pages' => $pages 
-    //         ] ; 
-
-    //     return view('shoeDetail',$data );
-    // }
-
-    // public function addShoePage(){
-
-    //     $auth = Auth::check();
-    //     $role = 'guest' ; 
-    //     $name = 'guest' ; 
-
-    //     if($auth){
-    //         $role = Auth::user()->role ; // ambil atribut role dari usernya 
-    //         $name = Auth::user()->username ; 
-    //     }
-
-    //     $pages = $this->retrievePages($role) ; 
-
-
-
-    //     $data = [
-    //         'auth'=>$auth ,
-    //         'role' => $role ,
-    //         'username' => $name ,
-    //         'pages' => $pages 
-    //         ] ; 
-
-    //     return view('addShoePage',$data );
-    // }
-
-    // public function addShoe(Request $request){
-
-    //     $validatedData = $request->validate([
-    //         'name' => 'required' ,
-    //         'price' => 'required|numeric|min:100' ,
-    //         'description' => 'required' ,
-    //         'image_file' => 'required' , 
-    //     ]) ;
+        $validatedData = $request->validate([
+            'name' => 'required' ,
+            'buy_price' => 'required|numeric|min:100' ,
+            'sell_price' => 'required|numeric|min:100' ,
+            'SKU' => 'required|unique' ,
+        ]) ;
 
 
     //     $check_file = 'shoes/'.$validatedData['image_file']->getClientOriginalName() ; 
@@ -147,7 +109,7 @@ class ItemController extends Controller
 
     //     return redirect('/home')->with(['failure'=>'Something went wrong  ! please try again']);
 
-    // }
+    }
 
     // public function editShoePage($id){
 
