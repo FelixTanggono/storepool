@@ -10,7 +10,7 @@ class Item extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name','SKU', 'image' , 'buy_price' , 'sell_price' , 'stock'
+        'name','SKU', 'image' , 'buy_price' , 'sell_price' , 'stock' , 'user_id'
     ];
 
     protected $guarded = ['id'];

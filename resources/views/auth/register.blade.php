@@ -12,7 +12,7 @@
                     <div class="col-lg-6" style="background-color: #113448 ;">
                         <br>
                         @if (session('failure'))
-                            <div class="alert alert-danger alert-dismissible fade show">
+                            <div class="alert alert-danger alert-dismissible flash-div  fade show">
                                 {{ session('failure') }}
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>

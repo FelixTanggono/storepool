@@ -23,7 +23,7 @@
                                 <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
                             @endif -->
                             @if (session('success'))
-                                <div class="alert alert-success alert-dismissible fade show">
+                                <div class="alert alert-success alert-dismissible flash-div  fade show">
                                     {{ session('success') }}
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -31,7 +31,7 @@
                                 </div>
                             @endif
                             @if (session('failure'))
-                                <div class="alert alert-danger alert-dismissible fade show">
+                                <div class="alert alert-danger alert-dismissible flash-div  fade show">
                                     {{ session('failure') }}
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>

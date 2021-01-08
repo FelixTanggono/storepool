@@ -16,7 +16,50 @@ use App\TransactionDetail   ;
 
 class TransactionController extends Controller
 {
-    //
+    public function homePage(Request $request){
+        
+        $keyword = '' ; 
+        $keyword = $request->get('search') ;
+
+        $auth = Auth::check();
+        $role = 'guest' ; 
+        $name = 'guest' ; 
+        $user_id ; 
+        $user_logo ; 
+
+
+        if($auth){
+            $role = Auth::user()->role ; // ambil atribut role dari usernya 
+            $name = Auth::user()->username ; 
+            $user_id = Auth::user()->id ; 
+            $user_logo = Auth::user()->logo ; 
+        }
+
+        // $item = Item::where('user_id' , $user_id )->paginate(10)->appends(request()->query()); 
+        // $resultCount = 0 ; 
+        
+        // if($keyword){
+        //     $item =  Item::where('name', 'LIKE', "%$keyword%")->where('user_id' , $user_id )->paginate(10)->appends(request()->query()) ; 
+        //     $resultCount = Item::where('name', 'LIKE', "%$keyword%")->where('user_id' , $user_id )->count() ;    
+        // }
+
+        // // var_dump($item) ; die ; 
+
+        $data = [
+                'auth'=>$auth ,
+                'role' => $role ,
+                'username' => $name ,
+                'user_logo' => $user_logo , 
+                'pages' => 'Transaction'
+
+                // 'item' => $item ,  
+                // 'keyword' => $keyword ,
+                // 'keywordCount' => $resultCount , 
+
+                ] ; 
+
+        return view('transactionPage' , $data );
+    }
 
     // public function addCartPage($id){
 

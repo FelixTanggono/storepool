@@ -1,3 +1,17 @@
 .bg-navy{
 	background-color :#113448 ;
 }
+
+
+.flash-div{
+	-webkit-animation: fadein 1s linear 1 normal forwards;
+}
+
+@-webkit-keyframes fadein{
+	from{
+	   opacity: 0;
+	}
+	to{
+		opacity: 1;
+	}
+}

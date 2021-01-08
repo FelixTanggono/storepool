@@ -39,6 +39,16 @@ Route::post('/profile','UserController@editProfile');
 
 //ITEM
 Route::get('/item','ItemController@homePage'); 
+Route::post('/addItem','ItemController@addItem');
+Route::get('/deleteItem/{id}','ItemController@deleteItem'); 
+Route::post('/editItem','ItemController@editItem'); 
+
+//ITEM
+Route::get('/transaction','TransactionController@homePage'); 
+ 
+
+
+
 // Route::get('/shoeDetail/{id}' , 'ItemController@shoeDetail') ;
 // Route::get('/addShoe' , 'ItemController@addShoePage');
 // Route::post('/addShoe' , 'ItemController@addShoe');
