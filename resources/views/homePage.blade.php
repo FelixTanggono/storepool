@@ -13,6 +13,25 @@
                     class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
         </div>
 
+        <div>
+            @if (session('failure'))
+                <div class="alert alert-danger alert-dismissible fade flash-div show col-md-5">
+                    {{ session('failure') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade flash-div show col-md-5">
+                    {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+        </div>
+
         <!-- Content Row -->
         <div class="row">
             <!-- Earnings (Monthly) Card Example -->

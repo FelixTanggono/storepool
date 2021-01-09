@@ -29,16 +29,22 @@ class checkAccess
             $role = Auth::user()->role ; // ambil atribut role dari usernya 
         }
 
-        $role_id = Role::select('id')->where('name' , $role )->get(); 
-        $page_id = Page::select('id')->where('name' , $page )->get(); 
-        // echo $role_id . $page_id ;  
-        // echo $role_id[0]['id'] ; 
+        $guestPageAccess = array("landing_page" , "auth") ; 
+        $memberPageAccess = array("user" , "item" , "transaction" , "shop" , 'logout') ; 
 
-        $result = UserAccess::where('role_id', $role_id[0]['id'])->where('page_id', $page_id[0]['id'])->exists() ; 
-        // echo $result ;
-        
-        if(!$result){
-            return redirect('/home')->with(['failure'=>'You do not have access to this page !']); 
+        if($role == "guest"){
+            //role guest 
+            if(!in_array($page, $guestPageAccess)){
+                return redirect('/')->with(['failure'=>'You do not have access to this page !']); 
+            }
+
+        }else{
+            // role member
+            
+            if(!in_array($page, $memberPageAccess)){
+                return redirect('/home')->with(['failure'=>'You do not have access to this page !']); 
+            }
+
         }
 
         return $next($request);

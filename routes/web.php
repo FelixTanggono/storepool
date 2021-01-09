@@ -22,48 +22,43 @@ use Illuminate\Support\Facades\Route;
 
 
 // AUTH
-Route::get('/','AuthController@landingPage') ; 
-Route::get('/forgotPassword','AuthController@forgotPasswordPage') ; 
-Route::get('/login','AuthController@loginPage') ;
-Route::post('/login','AuthController@login');
-Route::get('/register','AuthController@registerPage');
-Route::post('/register','AuthController@register') ;
-Route::get('/logout','AuthController@logout') ; 
+Route::get('/','AuthController@landingPage')->middleware('checkAccess:landing_page') ; 
+Route::get('/forgotPassword','AuthController@forgotPasswordPage')->middleware('checkAccess:auth') ; 
+Route::get('/login','AuthController@loginPage')->middleware('checkAccess:auth') ; 
+Route::post('/login','AuthController@login')->middleware('checkAccess:auth') ; 
+Route::get('/register','AuthController@registerPage')->middleware('checkAccess:auth') ; 
+Route::post('/register','AuthController@register')->middleware('checkAccess:auth') ; 
+Route::get('/logout','AuthController@logout')->middleware('checkAccess:logout') ; 
 
 //USER
-Route::get('/home','UserController@homePage'); 
-Route::get('/profile','UserController@profilePage'); 
-Route::post('/profile','UserController@editProfile'); 
-
-
+Route::get('/home','UserController@homePage')->middleware('checkAccess:user') ; 
+Route::get('/profile','UserController@profilePage')->middleware('checkAccess:user') ; 
+Route::post('/editProfile','UserController@editProfile')->middleware('checkAccess:user') ; 
 
 //ITEM
-Route::get('/item','ItemController@homePage'); 
-Route::post('/addItem','ItemController@addItem');
-Route::get('/deleteItem/{id}','ItemController@deleteItem'); 
-Route::post('/editItem','ItemController@editItem'); 
+Route::get('/item','ItemController@homePage')->middleware('checkAccess:item') ; 
+Route::post('/addItem','ItemController@addItem')->middleware('checkAccess:item') ; 
+Route::get('/deleteItem/{id}','ItemController@deleteItem')->middleware('checkAccess:item') ; 
+Route::post('/editItem','ItemController@editItem')->middleware('checkAccess:item') ; 
 
-//ITEM
-Route::get('/transaction','TransactionController@homePage'); 
+//TRANSACTION
+Route::get('/transaction','TransactionController@homePage')->middleware('checkAccess:transaction') ;  
+Route::post('/transaction/searchItem','TransactionController@searchItem')->middleware('checkAccess:transaction') ;
+// Route::get('/transactionContent/{status}','TransactionController@transactionContent'); 
+
+//SHOP
+Route::get('/shop','ShopController@homePage')->middleware('checkAccess:shop') ;
+Route::post('/addShop', 'ShopController@addShop')->middleware('checkAccess:shop') ;
+Route::get('/deleteShop/{id}', 'ShopController@deleteShop')->middleware('checkAccess:shop') ;
+Route::post('/editShop', 'ShopController@editShop')->middleware('checkAccess:shop') ;
+
+//SHOP ACCOUNT 
+//belum sempat ngerjain 
  
 
 
 
-// Route::get('/shoeDetail/{id}' , 'ItemController@shoeDetail') ;
-// Route::get('/addShoe' , 'ItemController@addShoePage');
-// Route::post('/addShoe' , 'ItemController@addShoe');
-// Route::get('/editShoe/{id}' , 'ItemController@editShoePage');
-// Route::post('/editShoe' , 'ItemController@editShoe') ;
 
-
-// Route::get('/addCart/{id}','TransactionController@addCartPage'); 
-// Route::post('/addCart','TransactionController@addCart'); 
-// Route::get('/cart','TransactionController@cartPage') ; 
-// Route::get('/editCart/{id}','TransactionController@editCartPage') ; 
-// Route::post('/editCart','TransactionController@editCart') ; 
-// Route::get('/deleteCart/{id}','TransactionController@deleteCart') ; 
-// Route::post('/checkoutCart','TransactionController@addTransaction') ; 
-// Route::get('/transaction','TransactionController@transactionPage') ; 
 
 
 

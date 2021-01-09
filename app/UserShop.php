@@ -8,6 +8,7 @@ class UserShop extends Model
 {
     //
     protected $table = 'user_shop';
+    public $timestamps = false;
 
     protected $guarded = ['id'];
 

@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     <title>Storepool | {{$pages}} </title>
     <link rel="icon" href="/asset/image/landing page/logo.png">
@@ -75,7 +77,7 @@
             </div>
 
             <li class="nav-item">
-                <a class="nav-link" href="/transaction">
+                <a class="nav-link" href="/transaction?transaction_status=all_order">
                   <i class="fas fa-fw fa-clipboard"></i>
                   <span>Transaction</span>
                 </a>
@@ -167,7 +169,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
+            <footer class="sticky-footer bg-white sticky-bottom">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
                         <span>Copyright &copy; Storepool.co Limited 2020</span>
@@ -224,6 +226,15 @@
     <script src="/asset/js/demo/chart-area-demo.js"></script>
     <script src="/asset/js/demo/chart-pie-demo.js"></script>
 
+    <script>
+
+        function formatNumber(num) {
+            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") ; 
+        }
+
+    </script>
+
+    @yield('additional_script')
 </body>
 
 </html>
